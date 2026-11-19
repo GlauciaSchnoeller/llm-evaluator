@@ -1,0 +1,67 @@
+{
+    "evaluator": "classification",
+    "metrics": {
+        "accuracy": 0.6666666666666666,
+        "averages": {
+            "micro": {
+                "precision": 0.6666666666666666,
+                "recall": 0.6666666666666666,
+                "f1_score": 0.6666666666666666
+            },
+            "macro": {
+                "precision": 0.7222222222222222,
+                "recall": 0.6666666666666666,
+                "f1_score": 0.6555555555555556
+            },
+            "weighted": {
+                "precision": 0.7222222222222222,
+                "recall": 0.6666666666666666,
+                "f1_score": 0.6555555555555556
+            }
+        }
+    },
+    "details": {
+        "per_class": {
+            "ambiguidade": {
+                "precision": 0.6666666666666666,
+                "recall": 1.0,
+                "f1_score": 0.8,
+                "support": 2
+            },
+            "incompletude": {
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1_score": 0.6666666666666666,
+                "support": 2
+            },
+            "inconsistencia": {
+                "precision": 0.5,
+                "recall": 0.5,
+                "f1_score": 0.5,
+                "support": 2
+            }
+        },
+        "confusion_matrix": [
+            [
+                2,
+                0,
+                0
+            ],
+            [
+                0,
+                1,
+                1
+            ],
+            [
+                1,
+                0,
+                1
+            ]
+        ],
+        "labels": [
+            "ambiguidade",
+            "incompletude",
+            "inconsistencia"
+        ]
+    }
+}
