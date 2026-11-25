@@ -1,0 +1,12 @@
+{
+    "evaluator": "faithfulness",
+    "metrics": {
+        "faithfulness": 0.8
+    },
+    "details": {
+        "reasoning": "A resposta está amplamente apoiada pelo contexto, pois o contexto especifica explicitamente como o usuário pode redefinir sua senha (por meio de um link enviado ao e-mail cadastrado) e também fornece informações adicionais sobre o tempo de validade do link (24 horas). No entanto, a resposta não menciona explicitamente que o link deve ser clicado ou que o usuário deve fornecer uma nova senha. Portanto, a resposta é considerada parcialmente apoiada pelo contexto.",
+        "question": "Como o usuário pode redefinir sua senha?",
+        "answer": "O usuário pode redefinir sua senha por um link enviado ao e-mail cadastrado, válido por 24 horas.",
+        "context": "O sistema permite redefinir a senha por meio de um link enviado ao e-mail cadastrado. O link é válido por 24 horas."
+    }
+}
