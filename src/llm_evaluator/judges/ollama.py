@@ -1,4 +1,3 @@
-
 import json
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -41,14 +40,10 @@ class OllamaJudge(BaseJudge):
                 api_result = json.loads(response.read().decode("utf-8"))
 
         except HTTPError as error:
-            raise RuntimeError(
-                f"Ollama returned HTTP error {error.code}."
-            ) from error
+            raise RuntimeError(f"Ollama returned HTTP error {error.code}.") from error
 
         except URLError as error:
-            raise RuntimeError(
-                "Could not connect to Ollama."
-            ) from error
+            raise RuntimeError("Could not connect to Ollama.") from error
 
         try:
             judge_data = json.loads(api_result["response"])

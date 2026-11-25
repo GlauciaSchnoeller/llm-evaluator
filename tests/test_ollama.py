@@ -1,8 +1,8 @@
-
 import json
-from urllib.error import URLError
-import pytest
 from unittest.mock import MagicMock, patch
+from urllib.error import URLError
+
+import pytest
 
 from llm_evaluator.judges import JudgeResult, OllamaJudge
 
@@ -30,6 +30,7 @@ def test_ollama_judge_returns_judge_result(mock_urlopen):
     assert result.score == 0.9
     assert result.reasoning == "The answer is supported by the context."
 
+
 @patch("llm_evaluator.judges.ollama.urlopen")
 def test_ollama_judge_rejects_invalid_score(mock_urlopen):
     api_response = {
@@ -49,6 +50,7 @@ def test_ollama_judge_rejects_invalid_score(mock_urlopen):
 
     with pytest.raises(ValueError, match="between 0 and 1"):
         judge.evaluate("Evaluate this answer.")
+
 
 @patch("llm_evaluator.judges.ollama.urlopen")
 def test_ollama_judge_rejects_empty_reasoning(mock_urlopen):

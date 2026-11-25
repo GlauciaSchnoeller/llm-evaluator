@@ -1,7 +1,6 @@
 from llm_evaluator.judges.ollama import OllamaJudge
 from llm_evaluator.metrics.faithfulness import FaithfulnessEvaluator
 
-
 judge = OllamaJudge(model="llama3.2")
 
 evaluator = FaithfulnessEvaluator(judge=judge)

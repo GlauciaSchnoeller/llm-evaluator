@@ -1,15 +1,17 @@
 # LLM Evaluator
 
-A Python library for evaluating LLM responses and comparing model performance.
+A Python library for evaluating LLM responses and RAG applications.
+
+The project provides evaluation metrics, standardized results, model comparison, and LLM-as-a-Judge capabilities. It is designed to support experiments involving Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems.
 
 ## Features
 
-- Classification metrics (accuracy, precision, recall, F1-score).
-- Confusion matrix and classification reports.
-- Faithfulness evaluation using LLM-as-a-Judge.
-- Standardized evaluation results.
-- Model comparison.
-- JSON export of evaluation results.
+- **Classification metrics:** accuracy, precision, recall, F1-score, and confusion matrix.
+- **Standardized evaluation results:** structured results with metrics and evaluation details.
+- **Model comparison:** compare evaluation results from different models.
+- **Faithfulness evaluation:** assess whether an LLM-generated answer is supported by the provided context.
+- **LLM-as-a-Judge:** use language models to evaluate generated responses.
+- **Ollama integration:** run evaluations using locally hosted language models.
 
 
 ## Installation
@@ -21,70 +23,78 @@ git clone https://github.com/GlauciaSchnoeller/llm-evaluator.git
 cd llm-evaluator
 ```
 
-Create and activate a virtual environment:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-Install dependencies:
+Install the project and development dependencies:
 
 ```bash
 pip install -e ".[dev]"
 ```
 
-## Usage
+## Ollama Integration
 
-### Classification Evaluation
+The library provides an `OllamaJudge` implementation that uses locally hosted language models through the Ollama API.
 
-```python
-from llm_evaluator.metrics.classification import ClassificationEvaluator
+The integration uses Python's standard library (`urllib`), so no additional Python SDK is required.
 
-evaluator = ClassificationEvaluator(
-    labels=["ambiguity", "incompleteness", "inconsistency"]
-)
+### Prerequisites
 
-result = evaluator.evaluate(
-    y_true=["ambiguity", "incompleteness", "inconsistency"],
-    y_pred=["ambiguity", "incompleteness", "ambiguity"],
-)
+1. Install [Ollama](https://ollama.com/download).
+2. Download a model. For example:
 
-print(result.metrics)
+```bash
+ollama pull llama3.2
 ```
 
-### Faithfulness Evaluation
+3. Make sure the Ollama service is running.
 
-The `FaithfulnessEvaluator` uses an LLM Judge to evaluate whether an answer is supported by the provided context.
+### Configuration
+
+Configure the judge with the desired model:
 
 ```python
-from llm_evaluator.metrics.faithfulness import FaithfulnessEvaluator
+from llm_evaluator.judges import OllamaJudge
 
-evaluator = FaithfulnessEvaluator(judge=my_judge)
-
-result = evaluator.evaluate(
-    question="How can the user reset their password?",
-    answer="Through a link sent by email.",
-    context="The system allows password reset through an email link.",
+judge = OllamaJudge(
+    model="llama3.2",
+    base_url="http://localhost:11434",
+    timeout=300,
 )
-
-print(result.metrics)
 ```
 
-The judge must implement the `BaseJudge` interface and return a `JudgeResult`.
+The `OllamaJudge` implements the `BaseJudge` interface and returns standardized `JudgeResult` objects. It can be integrated with the `FaithfulnessEvaluator` to evaluate LLM-generated responses against a given context.
 
-### Export Results
+## Examples
 
-```python
-result.save_json("results/evaluation.json")
+The `examples/` directory contains usage examples:
+
+- **`compare_classifications.py`** — compares classification evaluation results from different models.
+- **`evaluate_faithfulness.py`** — evaluates response faithfulness using an LLM Judge powered by Ollama.
+
+Run an example from the project root:
+
+```bash
+python examples/compare_classifications.py
+```
+
+Or run the faithfulness evaluation:
+
+```bash
+python examples/evaluate_faithfulness.py
 ```
 
 ## Running Tests
+
+Run the test suite with:
 
 ```bash
 pytest -v
 ```
 
-## Development
+## Code Quality
 
-This project is under development. New evaluation metrics and LLM integrations will be added.
+The project uses Ruff for linting and formatting, and ty for static type checking.
+
+```bash
+ruff check .
+ruff format .
+ty check
+```

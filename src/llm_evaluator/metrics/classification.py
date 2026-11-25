@@ -7,7 +7,6 @@ from sklearn.metrics import (
 )
 
 from llm_evaluator.results import EvaluationResult
-from llm_evaluator.results.evaluation_result import EvaluationResult
 
 
 @dataclass
